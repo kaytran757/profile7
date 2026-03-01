@@ -24,7 +24,7 @@ interface Model {
 const cityModels: Record<string, Model[]> = {
   sg: [
     { name: 'Mai Linh', age: 22, district: 'Quận 1', price: 16, height: 162, weight: 50, views: 185.4, tags: ['Nhiệt tình', 'Chiều chuộng'], vip: true, image: 'https://pbs.twimg.com/media/HCK99-YaoAAn-jQ?format=jpg&name=large' },
-    { name: 'Thùy Tiên', age: 20, district: 'Quận 3', price: 15, height: 165, weight: 52, views: 172.1, tags: ['Tính cảm', 'Lắng nghe'], vip: true },
+    { name: 'Thùy Tiên', age: 20, district: 'Quận 3', price: 15, height: 165, weight: 52, views: 172.1, tags: ['Tính cảm', 'Lắng nghe'], vip: true },image: 'https://pbs.twimg.com/media/HCK-MlwaYAAi1lD?format=jpg&name=large' },
     { name: 'Hà Mỹ', age: 19, district: 'Quận 10', price: 13.5, height: 160, weight: 48, views: 165.3, tags: ['Hài hước', 'Dễ thương'], vip: true },
     { name: 'Khánh Huyền', age: 23, district: 'Bình Thạnh', price: 13, height: 163, weight: 51, views: 158.9, tags: ['Qua đêm'], vip: false },
     { name: 'Mỹ Linh', age: 21, district: 'Quận 7', price: 11.5, height: 168, weight: 54, views: 149.8, tags: ['Vui vẻ'], vip: true },
