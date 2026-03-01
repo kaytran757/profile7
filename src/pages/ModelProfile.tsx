@@ -212,6 +212,7 @@ const cityModels: Record<string, Record<string, ModelData>> = {
 export default function ModelProfile() {
   const [model, setModel] = useState<ModelData | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentVideoSlide, setCurrentVideoSlide] = useState(0);
   const [city, setCity] = useState<string | null>(null);
   const [modelName, setModelName] = useState<string | null>(null);
 
@@ -249,6 +250,150 @@ export default function ModelProfile() {
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
+
+  const totalVideoSlides = 5;
+
+  const handlePrevVideoSlide = () => {
+    setCurrentVideoSlide((prev) => (prev - 1 + totalVideoSlides) % totalVideoSlides);
+  };
+
+  const handleNextVideoSlide = () => {
+    setCurrentVideoSlide((prev) => (prev + 1) % totalVideoSlides);
+  };
+
+  const goToVideoSlide = (index: number) => {
+    setCurrentVideoSlide(index);
+  };
+
+  useEffect(() => {
+    const videoSlider = document.getElementById('video-slider');
+    if (!videoSlider) return;
+
+    let isDragging = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let velocity = 0;
+    let lastX = 0;
+    let lastTime = 0;
+    let animationId: number | null = null;
+    let hasMoved = false;
+
+    const stopAnimation = () => {
+      if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    };
+
+    const applyMomentum = () => {
+      stopAnimation();
+      const friction = 0.92;
+      let vel = velocity * 0.8;
+
+      const animate = () => {
+        if (Math.abs(vel) < 0.1) {
+          velocity = 0;
+          const slideWidth = videoSlider.offsetWidth;
+          const targetSlide = Math.round(-parseInt(videoSlider.style.transform.replace(/[^0-9-]/g, '') || '0') / slideWidth);
+          const clampedSlide = Math.max(0, Math.min(targetSlide, totalVideoSlides - 1));
+          setCurrentVideoSlide(clampedSlide);
+          return;
+        }
+
+        vel *= friction;
+        const currentTransform = parseInt(videoSlider.style.transform.replace(/[^0-9-]/g, '') || '0');
+        const newTransform = currentTransform + vel;
+        videoSlider.style.transform = `translateX(${newTransform}px)`;
+
+        animationId = requestAnimationFrame(animate);
+      };
+
+      if (Math.abs(vel) > 0.1) {
+        animationId = requestAnimationFrame(animate);
+      }
+    };
+
+    const getClientX = (e: MouseEvent | TouchEvent) => {
+      return 'touches' in e ? e.touches[0].clientX : e.clientX;
+    };
+
+    const handleStart = (e: MouseEvent | TouchEvent) => {
+      stopAnimation();
+      isDragging = true;
+      hasMoved = false;
+      velocity = 0;
+
+      const clientX = getClientX(e);
+      startX = clientX;
+      lastX = clientX;
+      scrollLeft = parseInt(videoSlider.style.transform.replace(/[^0-9-]/g, '') || '0');
+      lastTime = performance.now();
+
+      videoSlider.style.cursor = 'grabbing';
+      videoSlider.style.transition = 'none';
+    };
+
+    const handleMove = (e: MouseEvent | TouchEvent) => {
+      if (!isDragging) return;
+
+      const clientX = getClientX(e);
+      const now = performance.now();
+      const deltaTime = Math.max(now - lastTime, 1);
+      const deltaX = clientX - lastX;
+
+      if (Math.abs(clientX - startX) > 3) {
+        hasMoved = true;
+        if (e.cancelable) {
+          e.preventDefault();
+        }
+      }
+
+      velocity = (deltaX / deltaTime) * 10;
+      lastX = clientX;
+      lastTime = now;
+
+      const walk = clientX - startX;
+      const newTransform = scrollLeft + walk;
+      const maxTransform = -(videoSlider.offsetWidth * (totalVideoSlides - 1));
+      const clampedTransform = Math.max(maxTransform, Math.min(0, newTransform));
+
+      videoSlider.style.transform = `translateX(${clampedTransform}px)`;
+    };
+
+    const handleEnd = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      videoSlider.style.cursor = 'grab';
+
+      if (hasMoved) {
+        applyMomentum();
+      }
+    };
+
+    videoSlider.addEventListener('mousedown', handleStart);
+    videoSlider.addEventListener('touchstart', handleStart, { passive: true });
+
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('touchmove', handleMove, { passive: false });
+
+    window.addEventListener('mouseup', handleEnd);
+    window.addEventListener('touchend', handleEnd);
+
+    videoSlider.addEventListener('mouseleave', handleEnd);
+
+    videoSlider.style.cursor = 'grab';
+
+    return () => {
+      stopAnimation();
+      videoSlider.removeEventListener('mousedown', handleStart);
+      videoSlider.removeEventListener('touchstart', handleStart);
+      window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('touchmove', handleMove);
+      window.removeEventListener('mouseup', handleEnd);
+      window.removeEventListener('touchend', handleEnd);
+      videoSlider.removeEventListener('mouseleave', handleEnd);
+    };
+  }, [totalVideoSlides]);
 
   return (
     <div style={{ background: '#060606', color: '#f0ebe3', minHeight: '100vh' }}>
@@ -371,24 +516,49 @@ export default function ModelProfile() {
           <div className="profile-section-line" />
         </div>
 
-        <div className="profile-videos-grid">
-          <div className="profile-video-card profile-video-featured">
-            <div className="profile-video-placeholder">
-              <div className="profile-video-play">&#9654;</div>
-              <span className="profile-video-label">Video chính</span>
-            </div>
-            <div className="profile-video-duration">2:34</div>
+        <div className="profile-video-slider-wrap">
+          <div
+            id="video-slider"
+            className="profile-video-slider"
+            style={{ transform: `translateX(-${currentVideoSlide * 100}%)` }}
+          >
+            {[
+              { label: 'Video chính', duration: '2:34' },
+              { label: 'Cuộc sống hàng ngày', duration: '1:18' },
+              { label: 'Buổi tối lãng mạn', duration: '0:58' },
+              { label: 'Vlog du lịch', duration: '3:12' },
+              { label: 'Khoảnh khắc đặc biệt', duration: '1:45' }
+            ].map((video, idx) => (
+              <div key={idx} className="profile-video-slide">
+                <div className="profile-video-placeholder-16-9">
+                  <div className="profile-video-play">&#9654;</div>
+                  <span className="profile-video-label">{video.label}</span>
+                </div>
+                <div className="profile-video-duration">{video.duration}</div>
+              </div>
+            ))}
           </div>
 
-          {['Cuộc sống hàng ngày', 'Buổi tối lãng mạn', 'Vlog du lịch', 'Khoảnh khắc đặc biệt'].map((label, idx) => (
-            <div key={idx} className="profile-video-card">
-              <div className="profile-video-placeholder">
-                <div className="profile-video-play">&#9654;</div>
-                <span className="profile-video-label">{label}</span>
-              </div>
-              <div className="profile-video-duration">{idx % 2 === 0 ? '1:18' : '0:58'}</div>
-            </div>
-          ))}
+          <button className="profile-video-btn profile-video-prev" onClick={handlePrevVideoSlide}>
+            <ChevronLeft size={20} />
+          </button>
+          <button className="profile-video-btn profile-video-next" onClick={handleNextVideoSlide}>
+            <ChevronRight size={20} />
+          </button>
+
+          <div className="profile-video-dots">
+            {[0, 1, 2, 3, 4].map((index) => (
+              <div
+                key={index}
+                className={`profile-video-dot ${currentVideoSlide === index ? 'active' : ''}`}
+                onClick={() => goToVideoSlide(index)}
+              />
+            ))}
+          </div>
+
+          <div className="profile-video-count">
+            {String(currentVideoSlide + 1).padStart(2, '0')} / {String(totalVideoSlides).padStart(2, '0')}
+          </div>
         </div>
       </section>
 
