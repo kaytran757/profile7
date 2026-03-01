@@ -129,7 +129,7 @@ export default function CitySection({ id, cityLabel, cityName, cityNameItalic, c
             <div class="card-tags">
               ${model.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
             </div>
-            <button class="card-btn">Xem chi tiết</button>
+            <button class="card-btn" onclick="window.open('/profile?city=${cityKey}&name=${encodeURIComponent(model.name)}', '_blank')">Xem chi tiết</button>
           </div>
         </div>
       `;
