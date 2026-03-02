@@ -65,7 +65,7 @@ const cityModels: Record<string, Model[]> = {
     { name: 'Phúc An', age: 19, district: 'Phước Mỹ', price: 9, height: 168, weight: 46, views: 91.6, tags: ['Chiều chuộng', 'Vui vẻ'], vip: false, image: 'https://pbs.twimg.com/media/HCYOBuxa8AEsOPo?format=jpg&name=4096x4096' },
   ],
   nt: [
-    { name: 'Ngọc Hân', age: 23, district: 'Lộc Thọ', price: 14, height: 165, weight: 51, views: 171.5, tags: ['Lãng mạn', 'Chiều chuộng'], vip: true, image: 'https://pbs.twimg.com/media/HCXQeYlaAAAZlRl?format=jpg&name=large' },
+    { name: 'Ngọc Hân', age: 23, district: 'Lộc Thọ', price: 14, height: 165, weight: 51, views: 171.5, tags: ['Lãng mạn', 'Chiều chuộng'], vip: true, image: 'https://pbs.twimg.com/media/HCYOQW6bYAAm6og?format=jpg&name=4096x4096' },
     { name: 'Hương Giang', age: 19, district: 'Phương Sài', price: 10, height: 160, weight: 48, views: 159.3, tags: ['Vui vẻ', 'Năng động'], vip: true, image: 'https://pbs.twimg.com/media/HCXQeYlaAAAZlRl?format=jpg&name=large' },
     { name: 'Thảo Nguyên', age: 21, district: 'Phương Sơn', price: 12, height: 163, weight: 50, views: 148.7, tags: ['Nhẹ nhàng'], vip: true, image: 'https://pbs.twimg.com/media/HCXQeYlaAAAZlRl?format=jpg&name=large' },
     { name: 'Minh Châu', age: 26, district: 'Vĩnh Hải', price: 16, height: 158, weight: 53, views: 141.2, tags: ['Sang trọng', 'Tinh tế'], vip: true, image: 'https://pbs.twimg.com/media/HCXQeYlaAAAZlRl?format=jpg&name=large' },
