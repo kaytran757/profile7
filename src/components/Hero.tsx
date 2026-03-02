@@ -7,6 +7,7 @@ import Footer from './Footer';
 
 export default function Hero() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeCity, setActiveCity] = useState('saigon');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,7 +17,19 @@ export default function Hero() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash && ['saigon', 'hanoi', 'danang', 'nhatrang'].includes(hash)) {
+      setActiveCity(hash);
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        element?.scrollIntoView({ behavior: 'auto' });
+      }, 100);
+    }
+  }, []);
+
   const scrollToCity = (cityId: string) => {
+    setActiveCity(cityId);
     const element = document.getElementById(cityId);
     element?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -29,16 +42,16 @@ export default function Hero() {
         </a>
 
         <div className="nav-cities">
-          <button className="city-pill active" onClick={() => scrollToCity('saigon')}>
+          <button className={`city-pill ${activeCity === 'saigon' ? 'active' : ''}`} onClick={() => scrollToCity('saigon')}>
             Sài Gòn
           </button>
-          <button className="city-pill" onClick={() => scrollToCity('hanoi')}>
+          <button className={`city-pill ${activeCity === 'hanoi' ? 'active' : ''}`} onClick={() => scrollToCity('hanoi')}>
             Hà Nội
           </button>
-          <button className="city-pill" onClick={() => scrollToCity('danang')}>
+          <button className={`city-pill ${activeCity === 'danang' ? 'active' : ''}`} onClick={() => scrollToCity('danang')}>
             Đà Nẵng
           </button>
-          <button className="city-pill" onClick={() => scrollToCity('nhatrang')}>
+          <button className={`city-pill ${activeCity === 'nhatrang' ? 'active' : ''}`} onClick={() => scrollToCity('nhatrang')}>
             Nha Trang
           </button>
         </div>
