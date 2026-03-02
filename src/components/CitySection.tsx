@@ -76,7 +76,7 @@ const cityModels: Record<string, Model[]> = {
     { name: 'Bảo Trân', age: 19, district: 'Tân Lập', price: 8, height: 162, weight: 46, views: 110.8, tags: ['Thân thiện'], vip: false, image: 'https://pbs.twimg.com/media/HCYQWX5a8AAYXF1?format=jpg&name=4096x4096' },
     { name: 'Ánh Nguyệt', age: 25, district: 'Phước Long', price: 12, height: 168, weight: 51, views: 105.2, tags: ['Chiều chuộng', 'Dịu dàng'], vip: false, image: 'https://pbs.twimg.com/media/HCYQmA_bIAEb2M7?format=jpg&name=4096x4096' },
     { name: 'Kim Anh', age: 21, district: 'Vĩnh Trường', price: 10, height: 159, weight: 48, views: 99.7, tags: ['Hài hước', 'Vui vẻ'], vip: true, image: 'https://pbs.twimg.com/media/HCYQ27tbsAAwa7o?format=jpg&name=4096x4096' },
-    { name: 'Thùy Dương', age: 23, district: 'Phước Tiến', price: 14, height: 166, weight: 53, views: 94.1, tags: ['Lắng nghe', 'Chia sẻ'], vip: false, image: 'https://pbs.twimg.com/media/HCXQeYlaAAAZlRl?format=jpg&name=large' },
+    { name: 'Thùy Dương', age: 23, district: 'Phước Tiến', price: 14, height: 166, weight: 53, views: 94.1, tags: ['Lắng nghe', 'Chia sẻ'], vip: false, image: 'https://pbs.twimg.com/media/HCYRE64bIAAklz5?format=jpg&name=4096x4096' },
   ],
 };
 
