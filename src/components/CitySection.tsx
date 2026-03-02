@@ -46,7 +46,7 @@ const cityModels: Record<string, Model[]> = {
     { name: 'Trà My', age: 24, district: 'Thanh Xuân', price: 13, height: 159, weight: 50, views: 122.8, tags: ['Nhẹ nhàng'], vip: false, image: 'https://pbs.twimg.com/media/HCXeRBXbMAEH_nT?format=jpg&name=4096x4096' },
     { name: 'Hải Yến', age: 27, district: 'Hà Đông', price: 11, height: 167, weight: 54, views: 118.3, tags: ['Tình cảm', 'Lãng mạn'], vip: false, image: 'https://pbs.twimg.com/media/HCXeaKkbYAArNz6?format=jpg&name=4096x4096' },
     { name: 'Vân Anh', age: 21, district: 'Long Biên', price: 8, height: 161, weight: 46, views: 112.6, tags: ['Năng động'], vip: false, image: 'https://pbs.twimg.com/media/HCXeiHWagAAUQXJ?format=jpg&name=4096x4096' },
-    { name: 'Phương Linh', age: 23, district: 'Nam Từ Liêm', price: 12, height: 164, weight: 51, views: 108.9, tags: ['Bí ẩn'], vip: false, image: 'https://pbs.twimg.com/media/HCK99-YaoAAn-jQ?format=jpg&name=large' },
+    { name: 'Phương Linh', age: 23, district: 'Nam Từ Liêm', price: 12, height: 164, weight: 51, views: 108.9, tags: ['Bí ẩn'], vip: false, image: 'https://pbs.twimg.com/media/HCXeuk7awAAGFtJ?format=jpg&name=4096x4096' },
     { name: 'Thúy Nga', age: 19, district: 'Hoàng Mai', price: 14, height: 156, weight: 47, views: 104.2, tags: ['Chiều chuộng', 'Dễ thương'], vip: false, image: 'https://pbs.twimg.com/media/HCK99-YaoAAn-jQ?format=jpg&name=large' },
     { name: 'Mỹ Duyên', age: 26, district: 'Bắc Từ Liêm', price: 10, height: 168, weight: 55, views: 98.7, tags: ['Vui vẻ', 'Nhiệt tình'], vip: false, image: 'https://pbs.twimg.com/media/HCK99-YaoAAn-jQ?format=jpg&name=large' },
   ],
